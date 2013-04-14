@@ -1,0 +1,7 @@
+one, two, three
+lions, tigers, bears
+penguins, dodos, emus
+geckos, iguanas, dragons
+linux, osx, windows
+gilliam, del toro, nolan
+Athena, Aphrodite, Amphitrite
