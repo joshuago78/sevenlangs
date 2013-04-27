@@ -60,22 +60,23 @@ write("2/4 = ", x, "\n2/0 = ", y, "\n")
 
 TwoD := Object clone
 TwoD matrix := List clone
-TwoD total := 0
 
 TwoD addrow := method(row,
     matrix append(row)
 )
 
+TwoD showrow := method(rownum,
+    output := "row #{rownum}:" interpolate
+    matrix at(rownum) foreach(cellnum, value,
+        output = "#{output}\t#{value}" interpolate
+    )
+    output = "#{output}\t\tRow Sum: #{sumrow(rownum)}" interpolate
+    output println
+)    
+
 TwoD showrows := method(
     "Contents of matrix:" println
-    matrix foreach(rownum, row,
-        output := "row #{rownum}:" interpolate
-        row foreach(cellnum, value,
-            output = "#{output}\t#{value}" interpolate
-        )
-        output = "#{output}\t\tRow Sum: #{sumrow(rownum)}" interpolate
-        output println
-    )
+    matrix foreach(rownum, row, showrow(rownum))
 )
 
 TwoD sumrow := method(rownum,
@@ -86,6 +87,7 @@ TwoD sumrow := method(rownum,
 )
 
 TwoD sumall := method(
+    total := 0
     matrix foreach(rownum, row, (
         total = total + sumrow(rownum)
         )
