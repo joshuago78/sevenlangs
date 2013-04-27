@@ -1,6 +1,6 @@
 # Day 2 DO exercises
 
-# 1. Implement a Fibonacci function both recursively and with a loop
+writeln("Task 1. Implement a Fibonacci function both recursively and with a loop\n")
 
 fibr := method(index,
     if(index <= 0, 0,
@@ -33,8 +33,7 @@ fibl := method(index,
 for(x, 0, 12, write("fibl(", x, "): ", fibl(x), "\n"))
 
 
-# 2. Overwrite / to give 0 if divisor is 0
-"\nTesting / override\n" print
+writeln("\n\nTask 2. Overwrite / to give 0 if divisor is 0\n")
 
 # First create a new division operator for normal division
 Number setSlot("div", Number getSlot("/"))
@@ -54,9 +53,7 @@ y := 2/0
 write("2/4 = ", x, "\n2/0 = ", y, "\n")
 
 
-# Sum up all values from a 2 dimensional array
-
-"\n\nMatrix summation test" println
+writeln("\n\nTask 3. Sum up all values from a 2 dimensional array\n")
 
 TwoD := Object clone
 TwoD matrix := List clone
@@ -105,3 +102,41 @@ mymatrix addrow(row3)
 
 mymatrix showrows
 "Total summation: #{mymatrix sumall}" interpolate println
+
+
+writeln("\n\nTask 4. create a list that calculates an average\n")
+
+"myAverage testing" println
+
+List setSlot("myAverage",
+    method(
+        if(call target isEmpty,
+            Exception raise("List is empty!"),
+            call target foreach(index, value, 
+                #writeln("Testing value ", value, " : ", value type)
+                if(value proto != Number,
+                    Exception raise("Value at index #{index} is not a Number" interpolate)
+                )
+            )
+            average
+        )
+    )
+)
+
+
+x := list(1, 2, 3, 4, 5)
+y := list(1, 2, "hi", 4, 5)
+z := list()
+a := list(x, y, z)
+
+a foreach(index, currentlist,
+    writeln("Test list #{index+1}: " interpolate, currentlist)
+    "myAverage: " print
+    e := try(
+        avg := currentlist myAverage
+        write(avg, "\n")
+    )
+    e catch(Exception,
+        write("ERROR!: ", e error, "\n")
+    )
+)
