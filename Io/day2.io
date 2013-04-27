@@ -52,3 +52,54 @@ write("8 div 2 = ", z, "\n")
 x := 2/4
 y := 2/0
 write("2/4 = ", x, "\n2/0 = ", y, "\n")
+
+
+# Sum up all values from a 2 dimensional array
+
+"\n\nMatrix summation test" println
+
+TwoD := Object clone
+TwoD matrix := List clone
+TwoD total := 0
+
+TwoD addrow := method(row,
+    matrix append(row)
+)
+
+TwoD showrows := method(
+    "Contents of matrix:" println
+    matrix foreach(rownum, row,
+        output := "row #{rownum}:" interpolate
+        row foreach(cellnum, value,
+            output = "#{output}\t#{value}" interpolate
+        )
+        output = "#{output}\t\tRow Sum: #{sumrow(rownum)}" interpolate
+        output println
+    )
+)
+
+TwoD sumrow := method(rownum,
+    sum := 0
+    matrix at(rownum) foreach(cellnum, value,
+        sum = sum + value
+    )
+)
+
+TwoD sumall := method(
+    matrix foreach(rownum, row, (
+        total = total + sumrow(rownum)
+        )
+    )
+)
+
+# now instantiate a 2D matrix object and addsome rows
+mymatrix := TwoD clone
+row1 := list(1, 2, 3, 4, 5)
+row2 := list(5, 4, 3, 2, 1)
+row3 := list(3, 2, 4, 1, 5)
+mymatrix addrow(row1)
+mymatrix addrow(row2)
+mymatrix addrow(row3)
+
+mymatrix showrows
+"Total summation: #{mymatrix sumall}" interpolate println
