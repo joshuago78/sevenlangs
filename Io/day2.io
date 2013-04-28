@@ -140,3 +140,90 @@ a foreach(index, currentlist,
         write("ERROR!: ", e error, "\n")
     )
 )
+
+
+writeln("\n\nTask 5. Create a two dimensional list with methods dim(), set(), and get().")
+# Similar the TwoD object created above
+# Also include transpose for task 6
+# Write and read from a file
+
+Matrix := Object clone do (
+    init := method(
+        self rows := list()
+    )
+
+    dim := method(x, y,
+        self rows setSize(x)
+        for(i, 0, x-1,
+            self rows atPut(i, list() setSize(y))
+        )
+    )
+
+    set := method(x, y, value,
+        self rows at(x) atPut(y, value)
+    )
+
+    get := method(x, y,
+        self rows at(x) at(y)
+    )
+
+    toString := method(
+        output := ""
+        self rows foreach(rownum, row,
+            row foreach(colnum, value,
+                if(colnum == 0, output = output .. "|")
+                output = output .. " #{get(rownum, colnum)} |" interpolate
+            )
+            output = output .. "\n"
+        )
+        output
+    )
+
+    transpose := method(
+        trans := Matrix clone
+        trans dim(self rows at(0) size, self rows size)
+        self rows foreach(rownum, row,
+            row foreach(colnum, value,
+                trans set(colnum, rownum, self get(rownum, colnum))
+            )
+        )
+        trans
+    )
+
+    tofile := method(filename,
+        file := File with(filename)
+        file remove
+        file open
+        file write(self serialized)
+        file close
+    )
+
+    fromFile := method(filename, fromString,
+        file := File with(filename)
+        file open
+        doRelativeFile(filename)
+    )
+)
+
+writeln("\nCreating empty 2 x 3 matrix")
+m1 := Matrix clone
+m1 dim (2, 3)
+m1 toString print
+
+writeln("\nAdding sequential values to matrix")
+m1 set(0,0,0)
+m1 set(0,1,1)
+m1 set(0,2,2)
+m1 set(1,0,3)
+m1 set(1,1,4)
+m1 set(1,2,5)
+m1 toString print
+
+writeln("\n\nTask 6. Matrix transpose method")
+m2 := m1 transpose
+m2 toString print
+
+writeln("\n\nTask 7. Matrix methods to write to and read from a file")
+m1 tofile("matrix")
+m3 := Matrix fromFile("matrix")
+m3 toString print
