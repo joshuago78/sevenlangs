@@ -227,3 +227,56 @@ writeln("\n\nTask 7. Matrix methods to write to and read from a file")
 m1 tofile("matrix")
 m3 := Matrix fromFile("matrix")
 m3 toString print
+
+
+writeln("\n\nTask 8. Guessing Game!\n")
+
+Game := Object clone do(
+    
+    init := method(
+        self magicnumber := Random value(99) ceil
+        self console := File standardInput
+        self notyet := true
+        self count := 0
+    )
+
+    check := method(guess,
+        if(guess == self magicnumber,
+            self notyet = false
+            "You got it!" println
+        )
+        if(guess < self magicnumber,
+            "Too low. " print
+        )
+        if(guess > self magicnumber,
+            "Too high. " print
+        )
+    )
+
+    getguess := method(
+        "What's your guess?  " print
+        self count = self count + 1
+        guess := self console readLine asNumber
+    )
+
+    run := method(
+        "We're going to play the Guessing Game!" println
+        "I'm thinking of a number between 1 and 100" println
+        "You have 10 tries to guess it" println
+        while(count < 10 and self notyet,
+            self check(self getguess)
+        )
+        if(self notyet,
+            # Didn't get it
+            "I'm sorry, but you ran out of tries" println
+            "The correct number was ${self magicnumber}" println,
+            # Got it
+            "You got it in #{self count} tries." interpolate println
+            "Thanks for playing!\n" println
+        )
+    )
+)
+
+
+mygame := Game clone
+mygame run
