@@ -20,21 +20,22 @@ Book = anathem.
 /* knowledge base of musicians, instruments, and genres */
 
 plays(homme, guitar).
-genre(homme, stoner_rock).
 plays(grohl, drums).
-genre(grohl, rock).
 plays(dale, guitar).
-genre(dale, surf_rock).
 plays(reinhardt, guitar).
-genre(reinhardt, gypsy_jazz).
 plays(coltrane, saxophone).
-genre(coltrane, jazz).
 plays(armstrong, trumpet).
-genre(armstrong, jazz).
 plays(claypool, bass).
-genre(claypool, experimental).
 plays(alpert, trumpet).
+
 genre(alpert, latin).
+genre(homme, stoner_rock).
+genre(grohl, rock).
+genre(reinhardt, gypsy_jazz).
+genre(dale, surf_rock).
+genre(coltrane, jazz).
+genre(armstrong, jazz).
+genre(claypool, experimental).
 
 /* typed at console:
 ?- plays(Artist, guitar).
