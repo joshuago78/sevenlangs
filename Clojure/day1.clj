@@ -7,14 +7,16 @@
 
 
 (defn collection-type [col]
-	(if (= (str (type col)) "class clojure.lang.PersistentVector")
-		:vector
-		(if (= (str (type col)) "class clojure.lang.PersistentList")
-			:list
-			(if (= (str (type col)) "class clojure.lang.PersistentHashMap")
-				:map
-				(if (= (str (type col)) "class clojure.lang.PersistentHashSet")
-					:set
+	(let [Type (str (type col))]
+		(if (= Type "class clojure.lang.PersistentVector")
+			:vector
+			(if (= Type "class clojure.lang.PersistentList")
+				:list
+				(if (= Type "class clojure.lang.PersistentHashMap")
+					:map
+					(if (= Type "class clojure.lang.PersistentHashSet")
+						:set
+					)
 				)
 			)
 		)
